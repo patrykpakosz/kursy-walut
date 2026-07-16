@@ -1,0 +1,26 @@
+name: Aktualizuj kursy NBP
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */3 * * 1-5"
+
+permissions:
+  contents: write
+
+jobs:
+  update-rates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pobierz dwa ostatnie notowania NBP
+        run: curl -fsSL "https://api.nbp.pl/api/exchangerates/tables/A/last/2/?format=json" -o rates.json
+
+      - name: Zapisz zmiany
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rates.json
+          git diff --cached --quiet || git commit -m "Aktualizacja kursów NBP"
+          git push
