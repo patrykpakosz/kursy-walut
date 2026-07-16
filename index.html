@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kursy walut NBP</title>
+<style>
+:root { --ink:#172036; --muted:#718096; --line:#e8edf3; --up:#138a5b; --down:#d64545; --flat:#7a8697; }
+* { box-sizing:border-box; }
+html,body { margin:0; min-height:100%; background:#fff; font-family:"Segoe UI",Roboto,Arial,sans-serif; color:var(--ink); }
+.card { width:100%; min-height:100vh; padding:20px 24px 16px; background:#fff; }
+.header { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:12px; }
+h1 { font-size:18px; line-height:1.1; letter-spacing:.05em; margin:0; font-weight:700; }
+.updated { color:var(--muted); font-size:11px; white-space:nowrap; }
+.row { display:grid; grid-template-columns:88px 1fr auto; align-items:center; gap:12px; padding:13px 0; border-top:1px solid var(--line); }
+.pair { font-size:16px; font-weight:700; letter-spacing:.02em; }
+.rate { text-align:right; font-size:21px; font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.change { min-width:88px; text-align:right; font-size:14px; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.up { color:var(--up); }.down { color:var(--down); }.flat { color:var(--flat); }
+.error { color:#b42318; font-size:14px; padding-top:12px; border-top:1px solid var(--line); }
+@media (max-width:360px) { .card{padding:16px}.row{grid-template-columns:72px 1fr auto;gap:7px}.rate{font-size:18px}.change{min-width:72px;font-size:12px}h1{font-size:16px} }
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="header"><h1>KURSY WALUT NBP</h1><div id="updated" class="updated">Ładowanie…</div></div>
+  <section id="rates" aria-live="polite"></section>
+</main>
+<script>
+const API='rates.json';
+const codes=['EUR','USD','GBP'];
+const money=new Intl.NumberFormat('pl-PL',{minimumFractionDigits:4,maximumFractionDigits:4});
+const pct=new Intl.NumberFormat('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2,signDisplay:'always'});
+function mapRates(table){ return Object.fromEntries(table.rates.map(x=>[x.code,x.mid])); }
+function render(data){
+  const previous=mapRates(data[0]), current=mapRates(data[1]);
+  document.getElementById('updated').textContent='Aktualizacja: '+data[1].effectiveDate.split('-').reverse().join('.');
+  document.getElementById('rates').innerHTML=codes.map(code=>{
+    const value=current[code], delta=((value-previous[code])/previous[code])*100;
+    const cls=delta>0.00001?'up':delta<-0.00001?'down':'flat';
+    const icon=delta>0.00001?'▲':delta<-0.00001?'▼':'—';
+    return `<div class="row"><div class="pair">${code} / PLN</div><div class="rate">${money.format(value)} zł</div><div class="change ${cls}">${icon} ${pct.format(delta)}%</div></div>`;
+  }).join('');
+}
+async function load(){
+  try { const r=await fetch(API,{cache:'no-store'}); if(!r.ok) throw new Error(); render(await r.json()); }
+  catch(e) { document.getElementById('updated').textContent='Brak danych'; document.getElementById('rates').innerHTML='<div class="error">Nie udało się pobrać kursów NBP.</div>'; }
+}
+load(); setInterval(load,60*60*1000);
+</script>
+</body>
+</html>
