@@ -4,43 +4,196 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zegar URVE</title>
+
 <style>
-  * { box-sizing: border-box; }
-  html, body { width:100%; height:100%; margin:0; overflow:hidden; background:#001f4a; }
-  body { color:#fff; font-family:"Segoe UI", Arial, sans-serif; font-weight:300; }
-  .clock { width:100vw; height:100vh; min-width:1025px; min-height:320px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:18px 70px 14px; }
-  .main-time { height:154px; display:flex; align-items:baseline; justify-content:center; white-space:nowrap; letter-spacing:1px; }
-  #main { font-size:136px; line-height:1; font-weight:300; font-variant-numeric:tabular-nums; }
-  #seconds { margin-left:12px; font-size:76px; line-height:1; font-weight:300; opacity:.82; font-variant-numeric:tabular-nums; }
-  .rule { width:410px; height:1px; background:rgba(255,255,255,.30); margin:2px 0 15px; }
-  .world { width:600px; display:flex; justify-content:space-between; align-items:flex-start; }
-  .city { width:235px; display:flex; align-items:baseline; gap:16px; white-space:nowrap; }
-  .city.right { justify-content:flex-end; text-align:right; }
-  .label { color:rgba(255,255,255,.70); font-size:17px; font-weight:400; letter-spacing:3px; }
-  .small-time { color:#fff; font-size:48px; line-height:1; font-weight:300; font-variant-numeric:tabular-nums; }
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #001f4a;
+  }
+
+  body {
+    color: #ffffff;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-weight: 300;
+  }
+
+  .clock {
+    width: 100vw;
+    height: 100vh;
+    min-width: 1025px;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 70px;
+  }
+
+  .main-time {
+    height: 138px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    white-space: nowrap;
+    letter-spacing: 1px;
+  }
+
+  #main {
+    font-size: 132px;
+    line-height: 1;
+    font-weight: 300;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #seconds {
+    margin-left: 12px;
+    font-size: 74px;
+    line-height: 1;
+    font-weight: 300;
+    opacity: 0.82;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rule {
+    width: 410px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.30);
+  }
+
+  .date {
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .world {
+    width: 520px;
+    margin-top: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .city {
+    width: 220px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    white-space: nowrap;
+  }
+
+  .city.right {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .label {
+    color: rgba(255, 255, 255, 0.70);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 2.8px;
+  }
+
+  .small-time {
+    color: #ffffff;
+    font-size: 46px;
+    line-height: 1;
+    font-weight: 300;
+    font-variant-numeric: tabular-nums;
+  }
 </style>
 </head>
+
 <body>
   <main class="clock">
-    <div class="main-time"><span id="main">--:--</span><span id="seconds">--</span></div>
+    <div class="main-time">
+      <span id="main">--:--</span>
+      <span id="seconds">--</span>
+    </div>
+
     <div class="rule"></div>
+
+    <div class="date" id="date">---</div>
+
+    <div class="rule"></div>
+
     <div class="world">
-      <div class="city"><span class="label">TOKYO</span><span class="small-time" id="tokyo">--:--</span></div>
-      <div class="city right"><span class="label">LONDON</span><span class="small-time" id="london">--:--</span></div>
+      <div class="city">
+        <span class="label">TOKYO</span>
+        <span class="small-time" id="tokyo">--:--</span>
+      </div>
+
+      <div class="city right">
+        <span class="label">LONDON</span>
+        <span class="small-time" id="london">--:--</span>
+      </div>
     </div>
   </main>
+
 <script>
-  const format = (zone, options) => new Intl.DateTimeFormat('en-GB', { timeZone: zone, hourCycle:'h23', ...options });
-  const localHM = format('Europe/Warsaw', {hour:'2-digit', minute:'2-digit'});
-  const localS = format('Europe/Warsaw', {second:'2-digit'});
-  const hm = zone => format(zone, {hour:'2-digit', minute:'2-digit'});
+  const twoDigits = value => String(value).padStart(2, "0");
+
+  function getParts(timeZone) {
+    const values = new Intl.DateTimeFormat("en-GB", {
+      timeZone,
+      hourCycle: "h23",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    }).formatToParts(new Date());
+
+    return Object.fromEntries(
+      values
+        .filter(item => item.type !== "literal")
+        .map(item => [item.type, item.value])
+    );
+  }
+
+  const cityTime = timeZone => {
+    const parts = getParts(timeZone);
+    return `${parts.hour}:${parts.minute}`;
+  };
+
   function updateClock() {
     const now = new Date();
-    document.getElementById('main').textContent = localHM.format(now);
-    document.getElementById('seconds').textContent = localS.format(now);
-    document.getElementById('tokyo').textContent = hm('Asia/Tokyo').format(now);
-    document.getElementById('london').textContent = hm('Europe/London').format(now);
+    const warsaw = getParts("Europe/Warsaw");
+
+    document.getElementById("main").textContent =
+      `${warsaw.hour}:${warsaw.minute}`;
+
+    document.getElementById("seconds").textContent =
+      twoDigits(warsaw.second);
+
+    document.getElementById("tokyo").textContent =
+      cityTime("Asia/Tokyo");
+
+    document.getElementById("london").textContent =
+      cityTime("Europe/London");
+
+    document.getElementById("date").textContent =
+      new Intl.DateTimeFormat("pl-PL", {
+        timeZone: "Europe/Warsaw",
+        weekday: "long",
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      }).format(now);
   }
+
   updateClock();
   setInterval(updateClock, 250);
 </script>
