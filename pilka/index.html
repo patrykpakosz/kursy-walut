@@ -4,226 +4,59 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Widget piłkarski</title>
-
 <style>
-:root {
-  --ink: #172036;
-  --mut: #718096;
-  --line: #e8edf3;
-  --g: #16875b;
-  --y: #c78b00;
-  --r: #d64545;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #fff;
-  font-family: "Segoe UI", Arial, sans-serif;
-  color: var(--ink);
-}
-
-#app {
-  height: 100vh;
-  min-height: 250px;
-  padding: 14px 18px;
-}
-
-.head {
-  height: 39px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  border-bottom: 1px solid var(--line);
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: .03em;
-}
-
-.head img {
-  width: 29px;
-  height: 29px;
-  object-fit: contain;
-}
-
-.fake {
-  width: 29px;
-  height: 29px;
-  border-radius: 50%;
-  background: #1b4c96;
-  color: #fff;
-  display: grid;
-  place-items: center;
-  font-size: 11px;
-}
-
-.num {
-  margin-left: auto;
-  font-size: 10px;
-  color: var(--mut);
-  font-weight: 600;
-}
-
-.team {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 12px 0 8px;
-}
-
-.badge {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-}
-
-.name {
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.row {
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  gap: 8px;
-  padding: 5px 0;
-  font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.lab {
-  font-size: 9px;
-  letter-spacing: .04em;
-  color: var(--mut);
-  font-weight: 800;
-  padding-top: 2px;
-}
-
-.strong {
-  font-weight: 750;
-}
-
-.form {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  margin-top: 8px;
-  font-size: 10px;
-  color: var(--mut);
-  font-weight: 800;
-}
-
-.sq {
-  height: 21px;
-  width: 21px;
-  border-radius: 3px;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  font-size: 11px;
-}
-
-.W {
-  background: var(--g);
-}
-
-.R {
-  background: var(--y);
-}
-
-.P {
-  background: var(--r);
-}
-
-.N {
-  background: #94a3b8;
-}
-
-.tr {
-  display: grid;
-  grid-template-columns: 24px 1fr 26px 33px 27px;
-  gap: 3px;
-  padding: 3px 2px;
-  border-bottom: 1px solid #eff2f5;
-  font-size: 11px;
-}
-
-.th {
-  font-size: 8px;
-  color: var(--mut);
-  font-weight: 800;
-}
-
-.focus {
-  background: #eaf4ff;
-  color: #075b97;
-  font-weight: 800;
-  border-radius: 3px;
-}
-
-.news {
-  font-size: 12px;
-  font-weight: 650;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--line);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.fix {
-  display: grid;
-  grid-template-columns: 42px 1fr;
-  gap: 6px;
-  padding: 5px 0;
-  border-bottom: 1px solid #eff2f5;
-  font-size: 12px;
-}
-
-.time {
-  font-weight: 800;
-  color: #1769aa;
-}
-
-.note {
-  text-align: center;
-  color: var(--mut);
-  font-size: 12px;
-  margin-top: 45px;
-}
+:root{--ink:#172036;--mut:#718096;--line:#e8edf3;--g:#16875b;--y:#c78b00;--r:#d64545}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;font-family:"Segoe UI",Arial,sans-serif;color:var(--ink)}
+#app{height:100vh;min-height:250px;padding:14px 18px}
+.head{height:35px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--line);font-size:16px;font-weight:800;letter-spacing:.03em}
+.head img{width:28px;height:28px;object-fit:contain}
+.fake{width:27px;height:27px;border-radius:50%;background:#1b4c96;color:#fff;display:grid;place-items:center;font-size:11px}
+.num{margin-left:auto;font-size:10px;color:var(--mut);font-weight:600}
+.team{display:flex;align-items:center;gap:10px;margin:8px 0 5px}
+.badge{width:37px;height:37px;object-fit:contain}
+.name{font-size:18px;font-weight:800}
+.row{display:grid;grid-template-columns:60px 1fr;gap:8px;padding:3px 0;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lab{font-size:9px;letter-spacing:.04em;color:var(--mut);font-weight:800;padding-top:2px}
+.strong{font-weight:750}
+.form{display:flex;gap:5px;align-items:center;margin-top:6px;font-size:10px;color:var(--mut);font-weight:800}
+.sq{height:20px;width:20px;border-radius:3px;display:grid;place-items:center;color:#fff;font-size:10px}
+.W{background:var(--g)}
+.R{background:var(--y)}
+.P{background:var(--r)}
+.N{background:#94a3b8}
+.tr{display:grid;grid-template-columns:30px 1fr 32px 42px 37px;gap:3px;padding:3px 2px;border-bottom:1px solid #eff2f5;font-size:13px;line-height:1.2}
+.th{font-size:9px;color:var(--mut);font-weight:800}
+.focus{background:#eaf4ff;color:#075b97;font-weight:800;border-radius:3px}
+.news{font-size:12px;font-weight:650;padding:7px 0;border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.updated{font-size:9px;color:var(--mut);margin:6px 0 3px;text-align:right}
+.fix{display:grid;grid-template-columns:42px 1fr;gap:6px;padding:5px 0;border-bottom:1px solid #eff2f5;font-size:12px}
+.time{font-weight:800;color:#1769aa}
+.note{text-align:center;color:var(--mut);font-size:12px;margin-top:45px}
 </style>
 </head>
-
 <body>
 <main id="app">Ładowanie…</main>
-
 <script>
-let d, n = 0;
+let d,n=0;
 
-const q = s => String(s ?? '').replace(/[&<>]/g, '');
+const q=s=>String(s??'').replace(/[&<>]/g,'');
 
-function head(title, image) {
-  const icon = image
-    ? `<img src="${image}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'fake',textContent:'⚽'}))">`
+function head(t,u){
+  const icon=u
+    ? `<img src="${u}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'fake',textContent:'⚽'}))">`
     : '<span class="fake">⚽</span>';
 
-  return `<div class="head">
-    ${icon}
-    ${title}
-    <span class="num">${n + 1} / 8</span>
-  </div>`;
+  return `<div class="head">${icon}${t}<span class="num">${n+1} / 8</span></div>`;
 }
 
-function team(t) {
+function team(t){
+  const games=(t.nexts||[t.next]).slice(0,3);
+
   return `<div class="team">
     <img class="badge" src="${t.badge}" onerror="this.style.visibility='hidden'">
     <span class="name">${q(t.name)}</span>
-    <span class="num">${n + 1} / 8</span>
+    <span class="num">${n+1} / 8</span>
   </div>
 
   <div class="row">
@@ -231,112 +64,101 @@ function team(t) {
     <span class="strong">${q(t.last.text)} · ${q(t.last.date)}</span>
   </div>
 
-  <div class="row">
-    <span class="lab">NASTĘPNY</span>
-    <span class="strong">${q(t.next.text)} · ${q(t.next.date)}</span>
-  </div>
+  ${games.map((x,i)=>`
+    <div class="row">
+      <span class="lab">${i ? '' : 'NASTĘPNY'}</span>
+      <span class="strong">${q(x.text)} · ${q(x.date)}</span>
+    </div>
+  `).join('')}
 
   <div class="form">
     FORMA
-    ${t.form.map(x => `<b class="sq ${x}">${x}</b>`).join('')}
+    ${t.form.map(x=>`<b class="sq ${x}">${x}</b>`).join('')}
   </div>`;
 }
 
-function table(t) {
-  const rows = t.rows.slice(0, 5);
-  const selected = t.rows.find(x => x.team === t.focus);
+function table(t){
+  const rows=t.rows.slice(0,5);
+  const selected=t.rows.find(x=>x.team===t.focus);
 
-  if (selected && !rows.some(x => x.team === selected.team)) {
-    rows.push({ dots: true }, selected);
+  if(selected&&!rows.some(x=>x.team===selected.team)){
+    rows.push({dots:1},selected);
   }
 
-  return head(t.title, t.badge) +
-    `<div class="tr th">
+  return head(t.title,t.badge)+`
+    <div class="tr th">
       <span>#</span>
       <span>DRUŻYNA</span>
       <span>M</span>
       <span>BR</span>
       <span>PKT</span>
-    </div>` +
-
-    rows.map(x => {
-      if (x.dots) {
-        return `<div class="tr">
-          <span></span>
-          <span>…</span>
-        </div>`;
-      }
-
-      return `<div class="tr ${x.team === t.focus ? 'focus' : ''}">
+    </div>
+  `+rows.map(x=>x.dots
+    ? '<div class="tr"><span></span><span>…</span></div>'
+    : `<div class="tr ${x.team===t.focus?'focus':''}">
         <span>${x.rank}</span>
         <span>${q(x.team)}</span>
         <span>${x.played}</span>
         <span>${x.goals}</span>
         <span>${x.points}</span>
-      </div>`;
-    }).join('');
+      </div>`
+  ).join('');
 }
 
-function fifa() {
-  const t = d.fifa;
-  const rows = t.rows.slice(0, 5);
-  const poland = t.rows.find(x => x.team === 'Polska');
+function fifa(){
+  const t=d.fifa;
+  const rows=t.rows.slice(0,5);
+  const poland=t.rows.find(x=>x.team==='Polska');
 
-  if (poland && !rows.some(x => x.team === 'Polska')) {
-    rows.push({ dots: true }, poland);
+  if(poland&&!rows.some(x=>x.team==='Polska')){
+    rows.push({dots:1},poland);
   }
 
-  return head('RANKING FIFA', '') +
-    rows.map(x => {
-      if (x.dots) {
-        return `<div class="tr">
-          <span></span>
-          <span>…</span>
-        </div>`;
-      }
-
-      return `<div class="tr ${x.team === 'Polska' ? 'focus' : ''}">
-        <span>${x.rank}</span>
-        <span>${q(x.team)}</span>
-      </div>`;
-    }).join('');
+  return head('RANKING FIFA','')+
+    rows.map(x=>x.dots
+      ? '<div class="tr"><span></span><span>…</span></div>'
+      : `<div class="tr ${x.team==='Polska'?'focus':''}">
+          <span>${x.rank}</span>
+          <span>${q(x.team)}</span>
+        </div>`
+    ).join('');
 }
 
-function draw() {
-  const cards = [
-    () => team(d.teams[0]),
-    () => table(d.tables.ekstra),
-    () => team(d.teams[1]),
-    () => table(d.tables.premier),
-    () => team(d.teams[2]),
+function draw(){
+  const cards=[
+    ()=>team(d.teams[0]),
+    ()=>table(d.tables.ekstra),
+    ()=>team(d.teams[1]),
+    ()=>table(d.tables.premier),
+    ()=>team(d.teams[2]),
     fifa,
-    () => head('TOPOWE MECZE DZISIAJ', '') +
+    ()=>head('TOPOWE MECZE DZISIAJ','')+
       (d.matches.length
-        ? d.matches.map(x => `
+        ? d.matches.map(x=>`
             <div class="fix">
               <b class="time">${q(x.time)}</b>
               <span>${q(x.text)}</span>
             </div>
           `).join('')
         : '<div class="note">Brak topowych meczów w planie na dziś</div>'),
-    () => head('TOP WIADOMOŚCI', '') +
-      d.news.map(x => `<div class="news">• ${q(x)}</div>`).join('')
+    ()=>head('TOP WIADOMOŚCI','')+
+      `<div class="updated">Ostatnia aktualizacja: ${q(d.updatedAt||'brak danych')}</div>`+
+      d.news.slice(0,5).map(x=>`<div class="news">• ${q(x)}</div>`).join('')
   ];
 
-  document.getElementById('app').innerHTML = cards[n]();
-  n = (n + 1) % cards.length;
+  document.getElementById('app').innerHTML=cards[n]();
+  n=(n+1)%cards.length;
 }
 
-fetch('football-data.json', { cache: 'no-store' })
-  .then(response => response.json())
-  .then(data => {
-    d = data;
+fetch('football-data.json',{cache:'no-store'})
+  .then(r=>r.json())
+  .then(x=>{
+    d=x;
     draw();
-    setInterval(draw, 12000);
+    setInterval(draw,12000);
   })
-  .catch(() => {
-    document.getElementById('app').textContent =
-      'Brak danych piłkarskich.';
+  .catch(()=>{
+    document.getElementById('app').textContent='Brak danych piłkarskich.';
   });
 </script>
 </body>
